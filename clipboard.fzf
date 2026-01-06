@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -eu
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+HISTORY_FILE="${CLIPBOARD_HISTORY_FILE:-$SCRIPT_DIR/.clipboard_history}"
+
+if [[ ! -f "$HISTORY_FILE" ]] || [[ ! -s "$HISTORY_FILE" ]]; then
+  echo "No clipboard history found" >&2
+  exit 1
+fi
+
+selected=$(
+  nl -ba "$HISTORY_FILE" |
+  while read -r num encoded; do
+    decoded=$(echo "$encoded" | base64 -d 2>/dev/null || echo "[decode error]")
+    preview=$(echo -n "$decoded" | tr '\n' '␤' | head -c 200)
+    printf "%s\t%s\n" "$num" "$preview"
+  done |
+  fzf --with-nth=2.. \
+      --delimiter=$'\t' \
+      --preview="awk 'NR=={1}' '$HISTORY_FILE' | base64 -d" \
+      --preview-window=wrap \
+      --reverse
+)
+
+[[ -z "$selected" ]] && exit 0
+
+line_num=$(echo "$selected" | cut -f1)
+sed -n "${line_num}p" "$HISTORY_FILE" | base64 -d | pbcopy
