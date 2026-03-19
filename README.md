@@ -18,7 +18,7 @@ Press **Ctrl+P** to select from history (copies chosen item to clipboard).
 ## Config (in `.zshrc`)
 
 ```
-export FZF_CB_KEY='^P'
+export FZF_CB_KEY='^Y'
 export FZF_CB_HISTORY_LIMIT=100
 export FZF_CB_DAEMON_POLL_INTERVAL=1
 export FZF_CB_HISTORY_DIR=~/.local/share/fzf-clipboard
