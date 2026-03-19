@@ -1,21 +1,27 @@
 # fzf-clipboard
 
-Zsh plugin: fzf-powered clipboard history (currently macOS only).
+Zsh plugin: fzf-powered clipboard history (macOS only).
+
+## Installation
+
+```
+# Plugin manager example (zap)
+plug "esc/conda-zsh-completion"
+# Manual, TBU
+# source ~/.sandbox/fzf-clipboard/fzf-clipboard.plugin.zsh
+```
 
 ## Usage
 
-**Ctrl+P** (^P) after plugin enabled and anything copied
+Press **Ctrl+P** to select from history (copies chosen item to clipboard).
 
-## Config (`$ZDOTDIR/.zshrc`)
-
-Environment variables you can set and thei default values
+## Config (in `.zshrc`)
 
 ```
-export FZF_CB_KEY='^[p'  # Alt+P
-export FZF_CB_MAX=1
-export FZF_CB_POLL=1
-export FZF_CB_HISTORY_DIR=~/.cache/fzf-clipboard
+export FZF_CB_KEY='^P'
+export FZF_CB_HISTORY_LIMIT=100
+export FZF_CB_DAEMON_POLL_INTERVAL=1
+export FZF_CB_HISTORY_DIR=~/.local/share/fzf-clipboard
 ```
 
-Daemon (`fzf-clipboard-watch`) auto-starts, pidfile-managed.
-History: `~/.local/share/fzf-clipboard/.fzf_clipboard_history` (default).
+Daemon auto-starts (pid-managed). History in `$FZF_CB_HISTORY_DIR/.cache`.
