@@ -1,17 +1,21 @@
-### fzf-clipboard
+# fzf-clipboard
 
-![demo](./demo.gif)
+Zsh plugin: fzf-powered clipboard history (currently macOS only).
 
-Do a fzf search on your clipboard history and copy what you select.
+## Usage
 
-```bash
-# clone the repo to a target dir
-git clone https://github.com/dorukozerr/fzf-clipboard.git ~/somepath/somefolder
+**Ctrl+P** (^P) after plugin enabled and anything copied
 
-# update your shell config to source file
-source "$HOME/somepath/somefolder/fzf-clipboard.zsh"
+## Config (`$ZDOTDIR/.zshrc`)
+
+Environment variables you can set and thei default values
+
+```
+export FZF_CB_KEY='^[p'  # Alt+P
+export FZF_CB_MAX=1
+export FZF_CB_POLL=1
+export FZF_CB_HISTORY_DIR=~/.cache/fzf-clipboard
 ```
 
-keybinding configured is `ctrl + y`, you can update `fzf-clipboard.zsh` file to change the keybinding
-
-tested on macos & zsh only
+Daemon (`fzf-clipboard-watch`) auto-starts, pidfile-managed.
+History: `~/.local/share/fzf-clipboard/.fzf_clipboard_history` (default).
