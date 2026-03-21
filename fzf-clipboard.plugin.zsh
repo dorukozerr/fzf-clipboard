@@ -14,4 +14,4 @@ fzf_clipboard_widget() {
 }
 
 zle -N fzf_clipboard_widget
-bindkey "${FZF_CB_KEY:-^P}" fzf_clipboard_widget
+bindkey "${FZF_CB_KEY:-^Y}" fzf_clipboard_widget
